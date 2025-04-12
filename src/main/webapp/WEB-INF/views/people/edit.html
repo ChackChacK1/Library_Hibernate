@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Person</title>
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --danger-color: #f72585;
+            --success-color: #4cc9f0;
+            --gray-color: #6c757d;
+            --light-gray: #f8f9fa;
+            --dark-color: #212529;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-gray);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: var(--dark-color);
+        }
+
+        .edit-container {
+            background-color: white;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .edit-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .edit-title {
+            font-size: 1.8rem;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .edit-subtitle {
+            color: var(--gray-color);
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark-color);
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .error-message {
+            color: var(--danger-color);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex: 1;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #3a56d4;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--gray-color);
+            border: 2px solid var(--gray-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #f1f3f5;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background-color: white;
+            color: var(--danger-color);
+            border: 2px solid var(--danger-color);
+        }
+
+        .btn-danger:hover {
+            background-color: #fff0f5;
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+<div class="edit-container">
+    <div class="edit-header">
+        <h1 class="edit-title">Edit Profile</h1>
+        <p class="edit-subtitle">ID: <span th:text="${person.getId()}">ID</span></p>
+    </div>
+
+    <form th:method="PATCH" th:action="@{/people/{id}(id=${person.getId()})}" th:object="${person}">
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" th:field="*{name}" id="name" placeholder="John Doe"/>
+            <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="age">Age</label>
+            <input type="text" th:field="*{age}" id="age" placeholder="30"/>
+            <div class="error-message" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age Error</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="text" th:field="*{email}" id="email" placeholder="john@example.com"/>
+            <div class="error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</div>
+        </div>
+
+        <div class="action-buttons">
+            <button type="submit" class="btn btn-primary">Update Profile</button>
+            <a th:href="@{/people/{id}(id=${person.getId()})}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+
+    <form th:method="DELETE" th:action="@{/people/{id}(id=${person.getId()})}" class="delete-form">
+        <button type="submit" class="btn btn-danger" style="width: 100%; margin-top: 1rem;"
+                onclick="return confirm('Are you sure you want to delete this profile?')">
+            Delete Profile
+        </button>
+    </form>
+</div>
+
+<script>
+    // Плавное появление формы
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelector('.edit-container').style.opacity = 1;
+    });
+</script>
+</body>
+</html>

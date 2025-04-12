@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Person</title>
+</head>
+<body>
+<p th:text="${person.getName()}">VALUE</p>
+<p th:text="${person.getPerson_id()}">VALUE</p>
+
+<!-- Секция с книгами -->
+<div th:if="${!books.isEmpty()}">
+    <h3>Borrowed books:</h3>
+    <ul>
+        <li th:each="book : ${books}">
+            <span th:text="${book.title} + ' (' + ${book.author} + ', ' + ${book.publicationYear} + ')'"></span>
+        </li>
+    </ul>
+</div>
+<!-- Если книг нет -->
+<div th:unless="${!books.isEmpty()}">
+    <p>The man hasn't picked up any books yet.</p>
+</div>
+
+<a th:href="@{/people/{id}/edit(id=${person.getPerson_id()})}">Edit</a>
+
+<form th:method="DELETE" th:action="@{/people/{person_id}(person_id=${person.getPerson_id()})}">
+    <input type="submit" value="Delete"/>
+</form>
+</body>
+</html>
