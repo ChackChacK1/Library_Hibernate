@@ -1,13 +1,29 @@
 package ru.library.models;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "Book")
 public class Book {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private int book_id;
-    private Integer person_id;
+
+    @ManyToOne
+    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
+    private Person person_id;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "author")
     private String author;
+
+    @Column(name = "publicationyear")
     private int publicationYear;
 
-    public Book(int book_id, Integer person_id, String author, String title, int publicationYear) {
+    public Book(int book_id, Person person_id, String author, String title, int publicationYear) {
         this.book_id = book_id;
         this.person_id = person_id;
         this.author = author;
@@ -49,11 +65,11 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    public Integer getPerson_id() {
+    public Person getPerson_id() {
         return person_id;
     }
 
-    public void setPerson_id(Integer person_id) {
+    public void setPerson_id(Person person_id) {
         this.person_id = person_id;
     }
 }
