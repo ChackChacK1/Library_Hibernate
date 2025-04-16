@@ -1,11 +1,15 @@
 package ru.library.services;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.library.models.Book;
 import ru.library.models.Person;
 import ru.library.repositories.PeopleRepositories;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,7 +40,7 @@ public class PeopleService {
 
     @Transactional
     public void update(int id, Person updatedPerson){
-        updatedPerson.setPerson_id(id);
+        updatedPerson.setId(id);
         peopleRepositories.save(updatedPerson);
     }
 
@@ -44,4 +48,16 @@ public class PeopleService {
     public void delete(int id){
         peopleRepositories.deleteById(id);
     }
+
+   public List<Book> getBooksByPersonId(int id){
+        Optional<Person> person = peopleRepositories.findById(id);
+
+        if(person.isPresent()){
+            Hibernate.initialize(person.get().getBooks());
+            return person.get().getBooks();
+        }
+        else{
+            return Collections.emptyList();
+        }
+   }
 }

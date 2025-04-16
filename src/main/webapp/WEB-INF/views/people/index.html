@@ -93,7 +93,7 @@
 
     <div class="people-list">
         <div th:each="person : ${people}" class="person-item">
-            <a th:href="@{/people/{person_id}(person_id=${person.getPerson_id()})}"
+            <a th:href="@{/people/{id}(id=${person.getId()})}"
                th:text="${person.getName()}"
                class="person-link">user</a>
         </div>

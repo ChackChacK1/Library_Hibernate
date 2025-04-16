@@ -10,20 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9624891b-3f01-4d38-860b-13ea343c0383" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/library/repositories/BooksRepositories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/library/repositories/PeopleRepositories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/library/services/BooksService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/ru/library/services/PeopleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6ca73b72-7304-4982-97fa-c769fa0d12f7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6ca73b72-7304-4982-97fa-c769fa0d12f7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/6ca73b72-7304-4982-97fa-c769fa0d12f7/storage_v2/_src_/database/library.uyToCQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/6ca73b72-7304-4982-97fa-c769fa0d12f7/storage_v2/_src_/database/library.uyToCQ/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/DAO/BookDAO.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/DAO/PersonDAO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/config/SpringConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/config/SpringConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/controllers/BookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/controllers/BookController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/controllers/PeopleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/controllers/PeopleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/models/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/models/Book.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/models/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/models/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/database.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/repositories/BooksRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/repositories/BooksRepositories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/repositories/PeopleRepositories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/repositories/PeopleRepositories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/services/BooksService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/services/BooksService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ru/library/services/PeopleService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/ru/library/services/PeopleService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/books/show.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/new.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/new.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/show.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/people/show.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -252,7 +255,14 @@
       <workItem from="1744539172790" duration="29000" />
       <workItem from="1744539217919" duration="30000" />
       <workItem from="1744539259216" duration="1471000" />
-      <workItem from="1744649799782" duration="1296000" />
+      <workItem from="1744649799782" duration="3296000" />
+      <workItem from="1744653859060" duration="1900000" />
+      <workItem from="1744659948952" duration="387000" />
+      <workItem from="1744660368109" duration="413000" />
+      <workItem from="1744660799714" duration="23000" />
+      <workItem from="1744660834122" duration="454000" />
+      <workItem from="1744698618422" duration="20545000" />
+      <workItem from="1744742492773" duration="5161000" />
     </task>
     <servers />
   </component>

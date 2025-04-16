@@ -28,7 +28,7 @@ import java.util.Properties;
 @ComponentScan("ru.library")
 @EnableWebMvc
 @PropertySource("classpath:database.properties")
-@EnableJpaRepositories
+@EnableJpaRepositories("ru.library.repositories")
 @EnableTransactionManagement
 public class SpringConfig implements WebMvcConfigurer {
     private final ApplicationContext applicationContext;
@@ -89,7 +89,7 @@ public class SpringConfig implements WebMvcConfigurer {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
-        em.setPackagesToScan("ru.xyu.pizda.models");
+        em.setPackagesToScan("ru.library.models");
 
         final HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);

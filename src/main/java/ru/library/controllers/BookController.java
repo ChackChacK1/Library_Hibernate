@@ -6,17 +6,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.library.models.Book;
+import ru.library.models.Person;
 import ru.library.services.BooksService;
+import ru.library.services.PeopleService;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/books")
 public class BookController {
+
     private final BooksService booksService;
+    private final PeopleService peopleService;
 
     @Autowired
-    @Lazy
-    public BookController(BooksService booksService) {
+    public BookController(BooksService booksService, PeopleService peopleService) {
         this.booksService = booksService;
+        this.peopleService = peopleService;
     }
 
     @GetMapping()
@@ -25,10 +31,17 @@ public class BookController {
         return "books/index";
     }
 
-    @GetMapping("/{book_id}")
-    public String show(@PathVariable("book_id") int book_id, Model model) {
-        model.addAttribute("book", booksService.findOne(book_id));
-//        model.addAttribute("people", personDAO.index());
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
+        model.addAttribute("book", booksService.findOne(id));
+
+        Person bookOwner = booksService.getBookOwner(id);
+
+        if (bookOwner != null)
+            model.addAttribute("owner", bookOwner);
+        else
+            model.addAttribute("people", booksService.findAll());
+
         return "books/show";
     }
 
@@ -43,21 +56,33 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @GetMapping("/{book_id}/edit")
-    public String edit(@PathVariable("book_id") int book_id, Model model) {
-        model.addAttribute("book", booksService.findOne(book_id));
+    @GetMapping("/{id}/edit")
+    public String edit(@PathVariable("id") int id, Model model) {
+        model.addAttribute("book", booksService.findOne(id));
         return "books/edit";
     }
 
-    @PatchMapping("/{bood_id}")
-    public String update(@ModelAttribute("book") Book book, @PathVariable("bood_id") int book_id) {
-        booksService.update(book_id, book);
-        return "redirect:/books/" + book_id;
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("book") Book book, @PathVariable("id") int id) {
+        booksService.update(id, book);
+        return "redirect:/books/" + id;
     }
 
-    @DeleteMapping("/{book_id}")
-    public String delete(@PathVariable("book_id") int book_id) {
-        booksService.delete(book_id);
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        booksService.delete(id);
         return "redirect:/books/";
+    }
+
+    @PatchMapping("/id/release")
+    public String release(@PathVariable("id") int id) {
+        booksService.realise(id);
+        return "redirect:/books/" + id;
+    }
+
+    @PatchMapping("/id/assign")
+    public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person selectedPerson) {
+        booksService.assign(id, selectedPerson);
+        return "redirect:/books/" + id;
     }
 }

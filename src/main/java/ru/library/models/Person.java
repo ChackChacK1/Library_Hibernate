@@ -10,8 +10,8 @@ import java.util.List;
 public class Person {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "person_id")
-    private int person_id;
+    @Column(name = "id")
+    private int id;
 
     @Column(name = "name")
     private String name;
@@ -19,23 +19,23 @@ public class Person {
     @Column(name = "birthdate")
     private int birthDate;
 
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private List<Book> books;
 
-    public Person(int person_id, int birthDate, String name) {
-        this.person_id = person_id;
+    public Person(int birthDate, String name, List<Book> books) {
         this.birthDate = birthDate;
         this.name = name;
+        this.books = books;
     }
 
     public Person() {}
 
-    public int getPerson_id() {
-        return person_id;
+    public int getId() {
+        return id;
     }
 
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -53,4 +53,13 @@ public class Person {
     public void setBirthDate(int birthDate) {
         this.birthDate = birthDate;
     }
+
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
 }

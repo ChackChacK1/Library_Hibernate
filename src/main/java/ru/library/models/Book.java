@@ -7,12 +7,12 @@ import jakarta.persistence.*;
 public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "book_id")
-    private int book_id;
+    @Column(name = "id")
+    private int id;
 
     @ManyToOne
-    @JoinColumn(name = "person_id", referencedColumnName = "person_id")
-    private Person person_id;
+    @JoinColumn(name = "person_id", referencedColumnName = "id")
+    private Person owner;
 
     @Column(name = "title")
     private String title;
@@ -20,12 +20,10 @@ public class Book {
     @Column(name = "author")
     private String author;
 
-    @Column(name = "publicationyear")
+    @Column(name = "year")
     private int publicationYear;
 
-    public Book(int book_id, Person person_id, String author, String title, int publicationYear) {
-        this.book_id = book_id;
-        this.person_id = person_id;
+    public Book(String author, String title, int publicationYear) {
         this.author = author;
         this.title = title;
         this.publicationYear = publicationYear;
@@ -33,12 +31,12 @@ public class Book {
 
     public Book() {}
 
-    public int getBook_id() {
-        return book_id;
+    public int getId() {
+        return id;
     }
 
-    public void setBook_id(int book_id) {
-        this.book_id = book_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -65,11 +63,11 @@ public class Book {
         this.publicationYear = publicationYear;
     }
 
-    public Person getPerson_id() {
-        return person_id;
+    public Person getOwner() {
+        return owner;
     }
 
-    public void setPerson_id(Person person_id) {
-        this.person_id = person_id;
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 }

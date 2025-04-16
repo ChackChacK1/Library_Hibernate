@@ -2,7 +2,6 @@ package ru.library.controllers;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -14,10 +13,10 @@ import ru.library.services.PeopleService;
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
+
     private final PeopleService peopleService;
 
     @Autowired
-    @Lazy
     public PeopleController(PeopleService peopleService) {
         this.peopleService = peopleService;
     }
@@ -28,10 +27,10 @@ public class PeopleController {
         return "people/index";
     }
 
-    @GetMapping("/{person_id}")
-    public String show(@PathVariable("person_id") int person_id, Model model) {
-        model.addAttribute("person", peopleService.findOne(person_id));
-//        model.addAttribute("books", bookDAO.showByPerson(person_id));
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model) {
+        model.addAttribute("person", peopleService.findOne(id));
+        model.addAttribute("books", peopleService.getBooksByPersonId(id));
         return "people/show";
     }
 
@@ -51,16 +50,16 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    @GetMapping("/{person_id}/edit")
-    public String edit(Model model, @PathVariable("person_id") int person_id) {
-        model.addAttribute("person", peopleService.findOne(person_id));
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/edit";
     }
 
-    @PatchMapping("/{person_id}")
+    @PatchMapping("/{id}")
     public String update(@ModelAttribute("person") @Valid Person person,
                          BindingResult bindingResult,
-                         @PathVariable("person_id") int person_id) {
+                         @PathVariable("id") int person_id) {
 
         if (bindingResult.hasErrors()) {
             return "people/edit";
@@ -69,9 +68,9 @@ public class PeopleController {
         return "redirect:/people";
     }
 
-    @DeleteMapping("/{person_id}")
-    public String delete(@PathVariable("person_id") int person_id) {
-        peopleService.delete(person_id);
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable("id") int id) {
+        peopleService.delete(id);
         return "redirect:/people";
     }
 }
