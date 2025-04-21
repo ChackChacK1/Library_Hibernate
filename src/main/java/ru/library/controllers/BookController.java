@@ -2,6 +2,7 @@ package ru.library.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +11,7 @@ import ru.library.models.Person;
 import ru.library.services.BooksService;
 import ru.library.services.PeopleService;
 
+import java.util.Collections;
 import java.util.Optional;
 
 @Controller
@@ -26,8 +28,15 @@ public class BookController {
     }
 
     @GetMapping()
-    public String index(Model model) {
-        model.addAttribute("books", booksService.findAll());
+    public String index(@RequestParam(value = "page", required = false) Integer page,
+                        @RequestParam(value = "books_per_page", required = false) Integer booksPerPage,
+                        @RequestParam(value = "sort_by_year", required = false) boolean sortByYear,
+                        Model model) {
+        if (page == null || booksPerPage == null){
+            model.addAttribute("books", booksService.findAll(sortByYear));
+        }else {
+            model.addAttribute("books", booksService.findWithPagination(page, booksPerPage, sortByYear));}
+
         return "books/index";
     }
 
@@ -40,7 +49,7 @@ public class BookController {
         if (bookOwner != null)
             model.addAttribute("owner", bookOwner);
         else
-            model.addAttribute("people", booksService.findAll());
+            model.addAttribute("people", peopleService.findAll());
 
         return "books/show";
     }
@@ -74,15 +83,27 @@ public class BookController {
         return "redirect:/books/";
     }
 
-    @PatchMapping("/id/release")
+    @PatchMapping("/{id}/release")
     public String release(@PathVariable("id") int id) {
         booksService.realise(id);
         return "redirect:/books/" + id;
     }
 
-    @PatchMapping("/id/assign")
+    @PatchMapping("/{id}/assign")
     public String assign(@PathVariable("id") int id, @ModelAttribute("person") Person selectedPerson) {
         booksService.assign(id, selectedPerson);
         return "redirect:/books/" + id;
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(value = "query", required = false) String query, Model model){
+        if (query != null) {
+            model.addAttribute("books", booksService.search(query));
+        } else {
+            model.addAttribute("books", Collections.emptyList());
+        }
+        // Передаем query в модель (чтобы отобразить в форме)
+        model.addAttribute("query", query != null ? query : "");
+        return "books/search";
     }
 }

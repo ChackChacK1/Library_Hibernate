@@ -10,5 +10,5 @@ import java.util.Optional;
 
 @Repository
 public interface BooksRepositories extends JpaRepository<Book, Integer> {
-
+    List<Book> findByTitleContainingIgnoreCase(String prefix);
 }

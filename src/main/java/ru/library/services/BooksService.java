@@ -2,6 +2,9 @@ package ru.library.services;
 
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.library.models.Book;
@@ -22,8 +25,18 @@ public class BooksService {
         this.booksRepositories = booksRepositories;
     }
 
-    public List<Book> findAll() {
-        return booksRepositories.findAll();
+    public List<Book> findAll(boolean sortByYear) {
+        if (sortByYear) {
+            return booksRepositories.findAll(Sort.by( "publicationYear"));
+        }else{return booksRepositories.findAll();}
+    }
+
+    public List<Book> findWithPagination(Integer page, Integer booksPerPage, boolean sortByYear) {
+        if (sortByYear) {
+            return booksRepositories.findAll(PageRequest.of(page, booksPerPage, Sort.by("publicationYear"))).getContent();
+        }else {
+            return booksRepositories.findAll(PageRequest.of(page, booksPerPage)).getContent();
+        }
     }
 
     public Book findOne(int id) {
@@ -61,5 +74,9 @@ public class BooksService {
     @Transactional
     public void assign(int id, Person selectedPerson) {
         booksRepositories.findById(id).ifPresent(book -> {book.setOwner(selectedPerson);});
+    }
+
+    public List<Book> search(String prefix) {
+        return booksRepositories.findByTitleContainingIgnoreCase(prefix);
     }
 }

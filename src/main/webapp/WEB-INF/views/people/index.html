@@ -3,87 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All People</title>
+    <title>People List | Library Portal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --text: #2d3436;
+            --bg: #f9f9f9;
+            --success: #2ecc71;
+            --success-dark: #27ae60;
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
             margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
             padding: 20px;
-            background-color: #f5f5f5;
-            color: #333;
         }
 
         .container {
+            width: 100%;
             max-width: 800px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            padding: 40px;
+            animation: fadeIn 0.8s ease-out;
         }
 
         h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
             text-align: center;
-            color: #2c3e50;
-            margin-bottom: 30px;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: var(--accent);
         }
 
         .people-list {
             list-style: none;
             padding: 0;
+            margin: 30px 0;
         }
 
         .person-item {
-            margin-bottom: 10px;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
+            margin-bottom: 15px;
+            padding: 20px;
+            background: rgba(74, 111, 165, 0.05);
+            border-radius: 8px;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
         }
 
         .person-item:hover {
-            background-color: #e9ecef;
-            transform: translateX(5px);
+            background: rgba(74, 111, 165, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
         }
 
         .person-link {
             text-decoration: none;
-            color: #3498db;
-            font-weight: 500;
-            font-size: 18px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 1.1rem;
+            flex-grow: 1;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s ease;
         }
 
         .person-link:hover {
-            color: #2980b9;
-            text-decoration: underline;
+            color: var(--secondary);
+        }
+
+        .person-link i {
+            margin-right: 12px;
+            color: var(--accent);
+            font-size: 1.2em;
         }
 
         .divider {
             border: 0;
             height: 1px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-            margin: 30px 0;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(22, 96, 136, 0.3), rgba(0, 0, 0, 0));
+            margin: 40px 0;
         }
 
         .create-btn {
-            display: inline-block;
-            background-color: #2ecc71;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
             color: white;
-            padding: 12px 24px;
+            padding: 14px 28px;
             text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background-color 0.3s;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .create-btn:hover {
-            background-color: #27ae60;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, var(--success-dark) 0%, var(--success) 100%);
+        }
+
+        .create-btn i {
+            margin-right: 10px;
         }
 
         .btn-container {
             text-align: center;
             margin-top: 20px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: var(--primary);
+            opacity: 0.7;
+            text-align: center;
         }
     </style>
 </head>
@@ -95,15 +171,24 @@
         <div th:each="person : ${people}" class="person-item">
             <a th:href="@{/people/{id}(id=${person.getId()})}"
                th:text="${person.getName()}"
-               class="person-link">user</a>
+               class="person-link">
+                <i class="fas fa-user"></i>
+                <span th:text="${person.getName()}">User</span>
+            </a>
         </div>
     </div>
 
     <hr class="divider"/>
 
     <div class="btn-container">
-        <a href="people/new" class="create-btn">Create New Person</a>
+        <a href="people/new" class="create-btn">
+            <i class="fas fa-plus-circle"></i> Create New Person
+        </a>
     </div>
 </div>
+
+<footer>
+    © 2023 Library Management System
+</footer>
 </body>
 </html>

@@ -1,22 +1,160 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>New person</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Person | Library Portal</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6fa5;
+            --secondary: #166088;
+            --accent: #4fc3f7;
+            --text: #2d3436;
+            --bg: #f9f9f9;
+            --success: #2ecc71;
+            --success-dark: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+            padding: 40px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            color: var(--secondary);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2rem;
+            position: relative;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+        }
+
+        .add-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        label {
+            font-weight: 600;
+            color: var(--secondary);
+            margin-left: 5px;
+        }
+
+        input[type="text"] {
+            padding: 12px 15px;
+            border: 2px solid rgba(74, 111, 165, 0.2);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.2);
+        }
+
+        .error-message {
+            color: var(--danger);
+            font-size: 0.85rem;
+            margin-top: 5px;
+            margin-left: 5px;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, var(--success) 0%, var(--success-dark) 100%);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
+<div class="container">
+    <h1>Add New Person</h1>
 
-<form th:method="POST" th:action="@{/people}" th:object="${person}">
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
-    <div style="color:red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name Error</div>
-    <br/>
-    <label for="birthDate">Enter year of birth: </label>
-    <input type="text" th:field="*{birthDate}" id="birthDate"/>
-    <div style="color:red" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Age Error</div>
-    <br/>
-    <input type="submit" value="Create!"/>
-</form>
+    <form th:method="POST" th:action="@{/people}" th:object="${person}" class="add-form">
+        <div class="form-group">
+            <label for="name">Full Name:</label>
+            <input type="text" th:field="*{name}" id="name" placeholder="Enter person's full name" required>
+            <div class="error-message" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Please enter a valid name</div>
+        </div>
 
+        <div class="form-group">
+            <label for="birthDate">Year of Birth:</label>
+            <input type="text" th:field="*{birthDate}" id="birthDate" placeholder="Enter year of birth (YYYY)" required>
+            <div class="error-message" th:if="${#fields.hasErrors('birthDate')}" th:errors="*{birthDate}">Please enter a valid year</div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+            <i class="fas fa-user-plus"></i> Create Person
+        </button>
+    </form>
+</div>
 </body>
 </html>
